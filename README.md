@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+'Cosmic Nexus'는 Next.js로 개발된 **인터랙티브 우주 테마 웹 애플리케이션 데모**입니다. 현재는 클라이언트 측에서 동작을 시뮬레이션하며, 사용자를 익명 행성으로 시각화하여 우주 배경에서 성장하고 상호작용하는 모습을 보여줍니다.
 
-## Getting Started
+---
 
-First, run the development server:
+### **주요 특징**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* **인터랙티브 우주 배경**: 캔버스 기반의 반짝이는 별 배경.
+* **실시간 사용자 표현 (시뮬레이션)**: 각 접속자를 고유 ID를 가진 행성으로 표현 (현재는 가상 사용자 시뮬레이션).
+* **행성 성장**: 접속 시간에 따라 행성 크기 증가 (최대 크기 제한).
+* **클릭 가능한 행성 정보**: 클릭 시 익명 ID, 접속 시간 등 간략한 정보 표시.
+* **익명성 강조**: 'Voyager-', 'Starlight-' 등의 컨셉 ID 부여.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### **기술 스택**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **프론트엔드**: Next.js (App Router, 클라이언트 컴포넌트), React, Framer Motion, Tailwind CSS, JavaScript.
+* **웹소켓 (클라이언트 라이브러리)**: Socket.IO Client (현재 시뮬레이션 모드, 실제 연동 시 사용).
+* **백엔드 (잠재적 연동 대상)**: Node.js, Express.js, Socket.IO (데모에는 미포함).
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### **실행 방법**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1.  저장소 클론: `git clone [당신의 저장소 URL]`
+2.  의존성 설치: `npm install` 또는 `yarn install`
+3.  애플리케이션 실행: `npm run dev` 또는 `yarn dev`
+4.  브라우저에서 `http://localhost:3000` 접속.
+    * **참고**: 현재 데모는 백엔드 서버 없이 클라이언트 시뮬레이션으로 동작하며, 여러 브라우저 탭을 열면 각 탭에서 자신의 행성과 시뮬레이션된 다른 행성을 볼 수 있습니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### **배포 고려 사항**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* **Next.js 앱 (프론트엔드)**: Vercel에 배포 권장.
+* **실시간 웹소켓 서버 (백엔드)**: 현재 데모는 백엔드 필요 없음. 실제 웹소켓 기능 구현 시 Render, Fly.io, Heroku 등 장시간 실행되는 서버 호스팅 서비스에 별도 배포 필요.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+### **향후 개선 아이디어**
+
+* 실제 웹소켓 백엔드 연동.
+* Three.js/React-Three-Fiber를 활용한 3D 우주 배경 구현.
+* 사운드 디자인 추가.
+* 상호작용 기능 확장 (익명 메시지, 행성 그룹화, 커스터마이징).
