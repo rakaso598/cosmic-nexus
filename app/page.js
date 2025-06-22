@@ -33,7 +33,9 @@ export default function HomePage() {
               key={user.id} // 각 행성의 고유 키 (React 리스트 렌더링에 필수)
               user={user} // 행성 데이터 전달
               onClick={setSelectedUser} // 클릭 시 selectedUser 상태 업데이트 함수 전달
-              isLocalUser={user.isLocalUser} // 로컬 사용자인지 여부 전달
+              // isLocalUser 속성을 user.id와 localUser.id를 비교하여 결정
+              // 이렇게 하면 각 클라이언트에서 자신이 'ME'인지 정확히 판단합니다.
+              isLocalUser={localUser && user.id === localUser.id}
             />
           ))}
         </AnimatePresence>

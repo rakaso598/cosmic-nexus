@@ -28,7 +28,7 @@ const useWebSocket = () => {
       size: 25,
       color: `hsl(${Math.random() * 360}, 70%, 60%)`,
       connectedAt: Date.now(),
-      isLocalUser: true,
+      isLocalUser: true, // 이 플래그는 클라이언트 내부에서만 사용됩니다.
     };
     setLocalUser(newLocalUser);
 
@@ -38,11 +38,15 @@ const useWebSocket = () => {
 
     socket.on('connect', () => {
       console.log('[클라이언트] WebSocket 서버에 연결되었습니다.');
-      // 서버에 로컬 사용자 정보 전송 (이때 랜덤 초기 위치 전송)
-      socket.emit('user_connected', newLocalUser);
+      // 서버에 보낼 사용자 데이터에서 isLocalUser 플래그는 제거합니다.
+      // 이 플래그는 클라이언트 자체에서만 의미가 있습니다.
+      const userDataToSend = { ...newLocalUser };
+      delete userDataToSend.isLocalUser; // 서버에는 이 정보가 필요 없습니다.
+      socket.emit('user_connected', userDataToSend);
     });
 
     socket.on('user_connected', (user) => {
+      // 서버로부터 받은 사용자 정보는 isLocalUser 플래그를 포함하지 않습니다.
       if (user.id !== currentUserId) {
         console.log(`[클라이언트] 새로운 사용자 접속: ${user.id}`);
         setRemoteUsers(prev => ({ ...prev, [user.id]: user }));
@@ -61,6 +65,10 @@ const useWebSocket = () => {
     socket.on('user_moved', (user) => {
       if (user.id !== currentUserId) {
         setRemoteUsers(prev => ({ ...prev, [user.id]: user }));
+      } else {
+        // 자신의 행성 위치가 서버를 통해 다시 전달된 경우 (선택 사항: 지연 보정 등)
+        // 현재는 마우스 팔로우가 없으므로 이 블록은 로컬 업데이트에만 영향을 줍니다.
+        setLocalUser(prev => ({ ...prev, x: user.x, y: user.y }));
       }
     });
 
