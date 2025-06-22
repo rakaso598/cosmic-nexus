@@ -1,10 +1,11 @@
-# 🌌 [Cosmic Nexus 인터랙티브 우주 테마 웹 애플리케이션](https://socket-universe.vercel.app)
+# 🌌 [Cosmic Nexus 인터랙티브 우주 테마 웹 애플리케이션](https://cosmic-nexus.vercel.app)
 
 ![Animation_uni_10](https://github.com/user-attachments/assets/890fbae2-8bbb-4915-815d-aec78679e8dc)
 
 'Cosmic Nexus'는 Next.js로 개발된 인터랙티브 우주 테마 웹 애플리케이션 데모입니다.  
 이 애플리케이션은 사용자를 익명 행성으로 시각화하여, 우주 배경에서 성장하고 상호작용하는 모습을 클라이언트 측에서 시뮬레이션합니다.  
 본래 웹소켓 서버를 통한 실시간 접속 기능을 포함하지만, Vercel의 서버리스 배포 환경에서는 웹소켓 서버 유지가 어려워 시뮬레이션 모드로 대체됩니다.  
+
 아래 드롭다운에서 웹소켓 서버를 활용한 시연 이미지를 확인하실 수 있습니다.  
 
 <details>
@@ -39,7 +40,7 @@
 
 ### **기술 스택**
 
-- *프론트엔드*  
+#### *프론트엔드*  
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
@@ -47,7 +48,7 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
   
-- *백엔드*  
+#### *백엔드*  
 
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
