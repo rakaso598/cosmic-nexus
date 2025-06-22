@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import React from 'react';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,12 +19,22 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="ko">
+      <head>
+        {/* 페이지 타이틀 */}
+        <title>Cosmic Nexus</title>
+        {/* Tailwind CSS CDN (실제 프로덕션에서는 PostCSS를 통해 빌드하는 것이 권장됩니다) */}
+        <script src="https://cdn.tailwindcss.com"></script>
+        {/* Font Awesome 아이콘 라이브러리 (아이콘 사용을 위해 추가) */}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></link>
+        {/* Inter 폰트 로드 (Google Fonts에서 가져옴) */}
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+      </head>
+      {/* <body> 태그는 검은색 배경, 흰색 텍스트, Inter 폰트를 기본으로 사용하며, 오버플로우를 숨깁니다 */}
+      <body className="bg-black text-white font-inter antialiased overflow-hidden">
+        {children} {/* 모든 페이지 콘텐츠가 여기에 렌더링됩니다 */}
       </body>
     </html>
   );
 }
+

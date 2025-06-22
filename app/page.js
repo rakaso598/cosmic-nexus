@@ -1,103 +1,62 @@
-import Image from "next/image";
+// app/page.jsx
+'use client'; // 이 파일이 클라이언트 컴포넌트임을 명시 (Next.js App Router에서 중요)
 
-export default function Home() {
+import React, { useState } from 'react';
+import { AnimatePresence } from 'framer-motion'; // 등장/퇴장 애니메이션을 위한 컴포넌트
+
+// 개별 컴포넌트 및 훅 임포트
+import SpaceBackground from '../components/SpaceBackground';
+import Planet from '../components/Planet';
+import PlanetInfoOverlay from '../components/PlanetInfoOverlay';
+import useWebSocket from '../hooks/useWebSocket';
+
+// 메인 페이지 컴포넌트
+export default function HomePage() {
+  // useWebSocket 훅을 사용하여 로컬 사용자 및 원격 사용자 데이터 가져오기
+  const { localUser, remoteUsers } = useWebSocket();
+  // 클릭된 행성(사용자)의 정보를 저장할 상태
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  // 로컬 사용자와 원격 사용자들을 모두 포함하는 배열 생성
+  const allUsers = localUser ? [localUser, ...remoteUsers] : [...remoteUsers];
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="relative w-screen h-screen overflow-hidden flex items-center justify-center">
+      {/* 우주 배경 컴포넌트 렌더링 */}
+      <SpaceBackground />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+      {/* 사용자 행성들을 렌더링할 영역 */}
+      <div className="absolute inset-0 z-10">
+        <AnimatePresence> {/* 행성 등장/퇴장 애니메이션을 관리 */}
+          {allUsers.map((user) => (
+            <Planet
+              key={user.id} // 각 행성의 고유 키 (React 리스트 렌더링에 필수)
+              user={user} // 행성 데이터 전달
+              onClick={setSelectedUser} // 클릭 시 selectedUser 상태 업데이트 함수 전달
+              isLocalUser={user.isLocalUser} // 로컬 사용자인지 여부 전달
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+          ))}
+        </AnimatePresence>
+      </div>
+
+      {/* 정보 오버레이 렌더링 (selectedUser가 있을 때만) */}
+      <AnimatePresence>
+        {selectedUser && (
+          <PlanetInfoOverlay
+            user={selectedUser} // 선택된 사용자 정보 전달
+            onClose={() => setSelectedUser(null)} // 오버레이 닫기 함수 전달
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        )}
+      </AnimatePresence>
+
+      {/* 중앙 하단 정보 패널 */}
+      <div className="absolute bottom-8 z-20 bg-gray-900 bg-opacity-70 border border-gray-700 rounded-xl p-4 text-center shadow-lg backdrop-blur-md">
+        <p className="text-xl text-sky-300 font-semibold mb-2">Cosmic Nexus</p>
+        <p className="text-gray-400 text-sm">우주를 떠다니는 익명 방문자들과 교류하세요.</p>
+        {localUser && (
+          <p className="text-gray-500 text-xs mt-2">당신의 ID: {localUser.id}</p>
+        )}
+      </div>
     </div>
   );
 }
