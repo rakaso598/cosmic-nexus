@@ -1,4 +1,43 @@
-'Cosmic Nexus'는 Next.js로 개발된 **인터랙티브 우주 테마 웹 애플리케이션 데모**입니다. 현재는 클라이언트 측에서 동작을 시뮬레이션하며, 사용자를 익명 행성으로 시각화하여 우주 배경에서 성장하고 상호작용하는 모습을 보여줍니다.
+# 🌌 [Cosmic Nexus](https://socket-universe.vercel.app)
+
+![Animation_uni_2](https://github.com/user-attachments/assets/982d18d7-d3f5-468d-ac65-783b4c1ed130)
+
+'Cosmic Nexus'는 Next.js로 개발된 **인터랙티브 우주 테마 웹 애플리케이션 (데모)**입니다. 현재는 클라이언트 측에서 동작을 시뮬레이션하며, 사용자를 익명 행성으로 시각화하여 우주 배경에서 성장하고 상호작용하는 모습을 보여줍니다.
+
+<details>
+<summary>메인화면 (웹소켓 서버 실행중)</summary>
+
+![image](https://github.com/user-attachments/assets/c5450312-6c5b-4ff1-9deb-127bcd5c8c93)
+
+</details>
+
+<details>
+<summary>타 행성 클릭 시 (웹소켓 서버 실행중)</summary>
+
+![image](https://github.com/user-attachments/assets/1b69f04d-77fd-450b-8a6c-ae08176b29a2)
+
+</details>
+
+<details>
+<summary>타 유저 접속시 브라우저 콘솔 (웹소켓 서버 실행중)</summary>
+
+![image](https://github.com/user-attachments/assets/e1b98b67-b9de-431d-b3f7-a2ae28544598)
+
+</details>
+
+<details>
+<summary>타 유저 접속시 서버 콘솔 (웹소켓 서버 실행중)</summary>
+
+![image](https://github.com/user-attachments/assets/f4f6eef4-c10d-4074-9ef4-2079ca103e79)
+
+</details>
+
+<details>
+<summary>시뮬레이션 모드 메인화면 (데모 환경): 행성이 점점 커짐</summary>
+
+![image](https://github.com/user-attachments/assets/05f80bea-da5b-4365-a3fc-0507f8372e2f)
+
+</details>
 
 ---
 
@@ -14,9 +53,47 @@
 
 ### **기술 스택**
 
-* **프론트엔드**: Next.js (App Router, 클라이언트 컴포넌트), React, Framer Motion, Tailwind CSS, JavaScript.
-* **웹소켓 (클라이언트 라이브러리)**: Socket.IO Client (현재 시뮬레이션 모드, 실제 연동 시 사용).
-* **백엔드 (잠재적 연동 대상)**: Node.js, Express.js, Socket.IO (데모에는 미포함).
+* **프론트엔드**:
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Framer Motion](https://img.shields.io/badge/Framer%20Motion-61DAFB?style=for-the-badge&logo=framer&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
+* **웹소켓**:
+![Socket.IO](https://img.shields.io/badge/Socket.IO-010101?style=for-the-badge&logo=socket.io&logoColor=white)
+  
+* **백엔드**: Node.js, Express.js
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+
+---
+
+### **프로젝트 구조**
+
+<details>
+<summary>클릭하여 열기</summary>
+
+your-nextjs-project/
+├── app/
+│   ├── layout.jsx        // 전역 레이아웃 및 HTML 기본 구조
+│   ├── page.jsx          // 메인 페이지 컴포넌트
+│   └── globals.css       // 전역 스타일 및 Tailwind CSS 설정
+├── components/
+│   ├── SpaceBackground.jsx // 캔버스 기반 우주 배경 컴포넌트
+│   ├── Planet.jsx          // 개별 행성(사용자) 컴포넌트
+│   └── PlanetInfoOverlay.jsx // 행성 클릭 시 정보 표시 오버레이 컴포넌트
+├── hooks/
+│   └── useWebSocket.jsx  // 웹소켓 통신 로직을 캡슐화한 커스텀 훅 (현재 시뮬레이션 모드)
+├── lib/
+│   └── utils.jsx         // 재사용 가능한 유틸리티 함수 모음 (예: UUID 생성)
+├── server/                 // (선택 사항) 실제 웹소켓 백엔드 서버 디렉토리
+│   ├── index.js          // Express + Socket.IO 서버 진입점
+│   └── package.json      // 서버 의존성 관리
+└── public/
+    └── assets/             // 이미지, 아이콘 등 정적 자산 (현재 비어 있음)
+
+</details>
 
 ---
 
