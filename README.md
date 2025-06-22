@@ -82,10 +82,11 @@ cosmic-nexus/
 │   ├── Planet.jsx          // 개별 행성(사용자) 컴포넌트
 │   └── PlanetInfoOverlay.jsx // 행성 클릭 시 정보 표시 오버레이 컴포넌트
 ├── hooks/
-│   └── useWebSocket.jsx  // 웹소켓 통신 로직을 캡슐화한 커스텀 훅 (현재 시뮬레이션 모드)
+│   └── useWebSocket.jsx  // 웹소켓 통신 로직을 캡슐화한 커스텀 훅 (시뮬레이션 모드)
+│   └── useWebSocket_SERVER.jsx  // 웹소켓 통신 로직을 캡슐화한 커스텀 훅 (웹소켓 서버 사용 시 활용 가능한 백업 파일)
 ├── lib/
 │   └── utils.jsx         // 재사용 가능한 유틸리티 함수 모음 (예: UUID 생성)
-├── server/                 // (선택 사항) 실제 웹소켓 백엔드 서버 디렉토리
+├── server/                 // (Vercel 배포환경 미적용) 실제 웹소켓 백엔드 서버 디렉토리
 │   ├── index.js          // Express + Socket.IO 서버 진입점
 │   └── package.json      // 서버 의존성 관리
 └── public/
@@ -102,7 +103,7 @@ cosmic-nexus/
 2.  의존성 설치: `npm install` 또는 `yarn install`
 3.  애플리케이션 실행: `npm run dev` 또는 `yarn dev`
 4.  브라우저에서 `http://localhost:3000` 접속.
-    * **참고**: 현재 데모는 백엔드 서버 없이 클라이언트 시뮬레이션으로 동작하며, 여러 브라우저 탭을 열면 각 탭에서 자신의 행성과 시뮬레이션된 다른 행성을 볼 수 있습니다.
+    * **참고**: 현재 데모는 백엔드 서버 없이 클라이언트 시뮬레이션으로 동작합니다.
 
 ---
 
