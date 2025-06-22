@@ -1,7 +1,7 @@
 // hooks/useWebSocket.jsx
 'use client'; // 클라이언트 컴포넌트임을 명시 (Next.js 13+에서 필요)
 
-import { useState, useEffect, useRef } from 'react'; // 오류 수정: `}>` 제거
+import { useState, useEffect, useRef } from 'react';
 import { generateUUID } from '../lib/utils'; // 유틸리티 함수 임포트
 // import io from 'socket.io-client'; // 실제 웹소켓 클라이언트 라이브러리는 임포트하지 않음
 
@@ -32,7 +32,7 @@ const useWebSocket = () => {
       id: currentUserId,
       x: Math.random() * (window.innerWidth - 40) + 20, // 화면 너비 내에서 20px 패딩을 두고 랜덤 X 위치
       y: Math.random() * (window.innerHeight - 40) + 20, // 화면 높이 내에서 20px 패딩을 두고 랜덤 Y 위치
-      size: 25, // 로컬 행성의 초기 크기는 고정
+      size: 25, // 로컬 행성의 초기 크기 (이후 성장 로직에 따라 변경됨)
       color: `hsl(${Math.random() * 360}, 70%, 60%)`, // 랜덤 색상
       connectedAt: Date.now(), // 접속 시간 기록
       isLocalUser: true, // 이 플래그는 클라이언트 내부에서만 사용됩니다.
@@ -129,6 +129,22 @@ const useWebSocket = () => {
 
         setRemoteUsers(prev => ({ ...prev, [user.id]: { ...user } })); // 강제 업데이트를 위해 새 객체 생성
       });
+
+      // 로컬 사용자 행성 크기 성장 (추가된 부분)
+      setLocalUser(prevLocalUser => {
+        if (!prevLocalUser) return null; // 로컬 사용자가 없으면 업데이트하지 않음
+
+        const elapsedTimeInSeconds = (Date.now() - prevLocalUser.connectedAt) / 1000;
+        let newLocalSize = prevLocalUser.size + (GROWTH_RATE_PER_SECOND * (2 / 2));
+        newLocalSize = Math.min(newLocalSize, MAX_PLANET_SIZE);
+
+        // 크기가 변경되었을 때만 새로운 객체를 반환하여 React 리렌더링 트리거
+        if (newLocalSize !== prevLocalUser.size) {
+          return { ...prevLocalUser, size: newLocalSize };
+        }
+        return prevLocalUser; // 크기 변화 없으면 기존 객체 반환
+      });
+
 
       // 사용자 접속 해제 시뮬레이션 (5% 확률)
       if (Object.keys(simulatedUsers).length > 0 && Math.random() < 0.05) {
