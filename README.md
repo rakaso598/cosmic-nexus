@@ -1,6 +1,6 @@
 # 🌌 [Cosmic Nexus 인터랙티브 우주 테마 웹 애플리케이션](https://cosmic-nexus.vercel.app)
 
-![Animation_uni_10](https://github.com/user-attachments/assets/890fbae2-8bbb-4915-815d-aec78679e8dc)
+![Animation_uni_20](https://github.com/user-attachments/assets/8b35e8c4-b0a6-4bdf-ad77-65d71d752802)
 
 'Cosmic Nexus'는 Next.js로 개발된 인터랙티브 우주 테마 웹 애플리케이션 데모입니다.  
 이 애플리케이션은 사용자를 익명 행성으로 시각화하여, 우주 배경에서 성장하고 상호작용하는 모습을 클라이언트 측에서 시뮬레이션합니다.  
